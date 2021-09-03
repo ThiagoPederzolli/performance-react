@@ -19,6 +19,10 @@ export default function Home() {
     setResults(data)
   }
 
+  async function addToWishList(id: number) {
+    console.log(id)
+  }
+
   return (
     <div>
       <h1>Pesquisar</h1>
@@ -27,7 +31,7 @@ export default function Home() {
         <button type="submit">Buscar</button>
       </form>
 
-      <SearchResults results={results} />
+      <SearchResults results={results} onAddToWishList={addToWishList} />
     </div>
   )
 }
