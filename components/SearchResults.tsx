@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { List, ListRowRenderer } from 'react-virtualized'
 import { ProductItem } from "./ProductItem"
 
 interface SearchResultsProps {
@@ -20,14 +21,30 @@ export function SearchResults({ results, onAddToWishList, totalPrice }: SearchRe
   //   }, 0)
   // },[results])
 
+  const rowRender: ListRowRenderer = ({ index, key, style }) => {
+    return (
+      <div key={key} style={style}>
+        <ProductItem product={results[index]} onAddToWishList={onAddToWishList} />
+      </div>
+    )
+  }
+
   return (
     <div>
       <h2>{totalPrice}</h2>
-      {results.map(product => {
+      <List
+        height={300}
+        rowHeight={30}
+        width={900}
+        overscanColumnCount={5} // quantos itens pra cima ou pra baixo quero já deixar carregado.
+        rowCount={results.length}
+        rowRenderer={rowRender}
+      />
+      {/* {results.map(product => {
         return (
           <ProductItem product={product} key={product.id} onAddToWishList={onAddToWishList} />
         )
-      })}
+      })} */}
     </div>
   )
 }
